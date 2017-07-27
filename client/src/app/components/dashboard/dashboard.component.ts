@@ -20,7 +20,9 @@ export class DashboardComponent implements OnInit {
 
     getUsers(): void {
         this.userService.getUsers().then(
-            users => this.users = users.slice(1, 5)
+            users => {
+                this.users = users.slice(0, 4);
+            }
         );
     }
 

@@ -24,6 +24,10 @@ security:
               login_path: login
               check_path: login
               default_target_path: default
+            logout:
+              invalidate_session: true
+              path:   /logout
+              target: /
             provider: db_provider
 
 

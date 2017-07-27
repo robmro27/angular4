@@ -23,6 +23,6 @@ class UserAPIController extends FOSRestController
                       ->getRepository(User::class)
                       ->findAll();
 
-        return $users;
+        return ['data' => $users];
     }
 }

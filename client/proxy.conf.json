@@ -1,0 +1,6 @@
+{
+  "/api/*": {
+    "target": "http://angular4.dev/app_dev.php/",
+    "logLevel": "debug"
+  }
+}
