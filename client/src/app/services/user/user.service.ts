@@ -35,6 +35,26 @@ export class UserService {
             .catch(this.handleError);
     }
 
+    addUser(name: string, password: string, email: string): Promise<User> {
+        return this.http.post(this.usersUrl, JSON.stringify(
+                {   username: name,
+                    password: password,
+                    email: email,
+                    is_active: true
+                }), {headers: this.headers})
+            .toPromise()
+            .then(response => response.json().data as User)
+            .catch(this.handleError);
+    }
+
+    deleteUser(id: number): Promise<void> {
+        const url = `${this.usersUrl}/${id}`;
+        return this.http.delete(url, {headers: this.headers})
+            .toPromise()
+            .then(() => null)
+            .catch(this.handleError);
+    }
+
     private handleError(error: any): Promise<any> {
         return Promise.reject(error.message || error);
     }

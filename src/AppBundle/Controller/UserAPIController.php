@@ -30,6 +30,29 @@ class UserAPIController extends FOSRestController
     }
 
     /**
+     * @Rest\Post("", name="api_user_add")
+     * @param Request $request
+     * @return array
+     */
+    public function userAddAction(Request $request)
+    {
+        $serializer = $this->get('jms_serializer');
+        $userDeserialize = $serializer->deserialize($request->getContent(), User::class, 'json');
+        /** @var $userDeserialize User */
+
+        if (!$userDeserialize instanceof User) {
+            throw new AccessDeniedException('Invalid user object');
+        }
+
+        $userDeserialize->setPassword($this->get('security.password_encoder')->encodePassword($userDeserialize, $userDeserialize->getPassword()));
+
+        $this->getDoctrine()->getManager()->persist($userDeserialize);
+        $this->getDoctrine()->getManager()->flush($userDeserialize);
+
+        return ['data' => $userDeserialize];
+    }
+
+    /**
      * @Rest\Get("/{user}", name="api_user_details")
      * @param User $user
      * @return array
@@ -37,6 +60,18 @@ class UserAPIController extends FOSRestController
     public function userAction(User $user)
     {
         return ['data' => $user];
+    }
+
+    /**
+     * @Rest\Delete("/{user}", name="api_user_delete")
+     * @param User $user
+     * @return null
+     */
+    public function userDeleteAction(User $user)
+    {
+        $this->getDoctrine()->getManager()->remove($user);
+        $this->getDoctrine()->getManager()->flush();
+        return null;
     }
 
     /**

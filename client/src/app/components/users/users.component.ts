@@ -28,8 +28,33 @@ export class UsersComponent implements OnInit {
     this.userService.getUsers().then(users => this.users = users);
   }
 
+  addUser(name: string, password: string, email: string): void {
+    name = name.trim();
+    if (!name) {return}
+
+    password = password.trim();
+    if (!password) {return}
+
+    email = email.trim();
+    if (!email) {return}
+
+    this.userService.addUser(name, password, email)
+        .then(user => {
+            this.users.push(user);
+            this.selectedUser = null;
+        })
+  }
+
+  deleteUser(user: User): void {
+    this.userService.deleteUser(user.id)
+        .then(() => {
+          this.users = this.users.filter(u => u !== user);
+          if (this.selectedUser === user) {this.selectedUser = null;}
+        })
+  }
+
   gotoDetail(): void {
-     this.router.navigate(['/user', this.selectedUser.id]);
+     this.router.navigate(['/user', this.selectedUser.id]).then();
   }
 
 }

@@ -1,6 +1,16 @@
+<div>
+  <label>User name:</label> <input #userName />
+  <label>User password:</label> <input #userPass />
+  <label>User email:</label> <input type="email" #userEmail />
+  <button (click)="addUser(userName.value, userPass.value, userEmail.value);userName.value='';userPass.value=''; userEmail.value = ''">
+    Add
+  </button>
+</div>
+
 <ul class="users">
   <li [class.selected]="user === selectedUser" *ngFor="let user of users" (click)="onSelect(user)">
     <span class="badge">{{user.id}}</span> {{user.username}}
+    <button class="delete" (click)="deleteUser(user); $event.stopPropagation()">x</button>
   </li>
 </ul>
 
