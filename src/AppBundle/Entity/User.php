@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 /**
@@ -15,32 +16,43 @@ class User implements AdvancedUserInterface, \Serializable
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @JMS\Type("integer")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=25, unique=true)
+     * @JMS\Type("string")
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @JMS\Type("string")
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=60, unique=true)
+     * @JMS\Type("string")
      */
     private $email;
 
     /**
      * @ORM\Column(name="is_active", type="boolean")
+     * @JMS\Type("boolean")
      */
     private $isActive;
 
     public function __construct()
     {
         $this->isActive = true;
+    }
+
+
+    public function getId()
+    {
+        return $this->id;
     }
 
     public function getUsername()

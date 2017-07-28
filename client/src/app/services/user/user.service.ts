@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from './user';
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -8,6 +8,7 @@ import 'rxjs/add/operator/toPromise';
 export class UserService {
 
     private usersUrl = 'api/users';
+    private headers = new Headers({'Content-Type': 'application/json'});
 
     constructor(private http: Http) { }
 
@@ -19,7 +20,19 @@ export class UserService {
     }
 
     getUser(id: number): Promise<User> {
-        return this.getUsers().then(users => users.find(user => user.id === id));
+        const url = `${this.usersUrl}/${id}`;
+        return this.http.get(url)
+            .toPromise()
+            .then(response => response.json().data as User)
+            .catch(this.handleError);
+    }
+
+    updateUser(user: User): Promise<User> {
+        const url = `${this.usersUrl}/${user.id}`;
+        return this.http.put(url, JSON.stringify(user), {headers: this.headers})
+            .toPromise()
+            .then(() => user)
+            .catch(this.handleError);
     }
 
     private handleError(error: any): Promise<any> {
