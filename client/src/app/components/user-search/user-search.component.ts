@@ -15,7 +15,6 @@ import {User} from '../../services/user/user';
 @Component({
     selector: 'user-search',
     templateUrl: './user-search.component.html',
-    styleUrls: ['./user-search.component.css'],
     providers: [UserSearchService]
 })
 
@@ -35,14 +34,14 @@ export class UserSearchComponent implements OnInit {
             .debounceTime(300)
             .distinctUntilChanged()
             .switchMap(term => term ? this.userSearchService.search(term) : Observable.of<User[]>([]))
-            .catch(error =>  {
+            .catch(error => {
                 console.log(error);
                 return Observable.of<User[]>([]);
             })
     }
 
     goToDetail(user: User): void {
-        let link = ['/detail', user.id];
+        let link = ['/user', user.id];
         this.router.navigate(link).then();
     }
 }

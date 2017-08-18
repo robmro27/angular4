@@ -1,17 +1,19 @@
 <div class="container">
-    <form (ngSubmit)="onSubmit()" #userForm="ngForm">
-        <div class="form-group">
+    <form *ngIf="model" (ngSubmit)="onSubmit()" #userForm="ngForm">
+        <div [ngClass]="{'has-danger': !username.valid && !username.pristine, 'has-success': username.valid}"
+             class="form-group">
             <label for="username">Name</label>
-            <input #username="ngModel" [(ngModel)]="model.username" name="username" type="text" class="form-control" id="username" required #spy1>
-            <div [hidden]="username.valid || username.pristine" class="alert alert-danger">Name is required</div>
+            <input [ngClass]="{'form-control-danger': !username.valid && !username.pristine, 'form-control-success': username.valid}" #username="ngModel" [(ngModel)]="model.username" name="username" type="text" class="form-control" id="username" required #spy1>
+            <div class="form-control-feedback" [hidden]="username.valid || username.pristine">Sorry! Name is required!</div>
             <!--<br>TODO: remove this: {{spy1.className}}-->
             <!--TODO: remove this: {{model.username}}-->
         </div>
 
-        <div class="form-group">
+        <div [ngClass]="{'has-danger': !email.valid && !email.pristine, 'has-success': email.valid}"
+             class="form-group">
             <label for="email">Email</label>
-            <input #email="ngModel" [(ngModel)]="model.email" name="email" type="text" class="form-control" id="email" required #spy2>
-            <div [hidden]="email.valid || email.pristine" class="alert alert-danger">Email is required</div>
+            <input [ngClass]="{'form-control-danger': !email.valid && !email.pristine, 'form-control-success': email.valid}" #email="ngModel" [(ngModel)]="model.email" name="email" type="text" class="form-control" id="email" required #spy2>
+            <div class="form-control-feedback" [hidden]="email.valid || email.pristine">Sorry! Email is required!</div>
             <!--<br>TODO: remove this: {{spy2.className}}-->
             <!--TODO: remove this: {{model.email}}-->
         </div>
@@ -23,7 +25,9 @@
             </select>
         </div>
 
-        <button [disabled]="!userForm.form.valid" type="submit" class="btn btn-success">Submit</button>
+        <button [disabled]="!userForm.form.valid" class="btn btn-primary" type="submit">
+               Save
+        </button>
 
     </form>
 </div>

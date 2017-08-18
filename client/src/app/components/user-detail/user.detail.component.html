@@ -1,6 +1,20 @@
-<h3 *ngIf="user">Edit user: {{user.username}}</h3>
-<user-form *ngIf="user"
-           [user]="user"
-           (onSubmitted)="onSubmitted()"
-></user-form>
-<button (click)="goBack()">Back</button>
+<h3 *ngIf="user">
+    <button class="btn btn-primary" (click)="goBack()">Back</button>
+    Edit
+</h3>
+
+<div class="row">
+    <div class="col-md-6">
+
+        <div class="card">
+            <div class="card-block">
+                <h4 class="card-title">
+                    {{user.username}}
+                </h4>
+                <user-form *ngIf="user" [user]="user" (onSubmitted)="onSubmitted()"></user-form>
+            </div>
+        </div>
+
+
+    </div>
+</div>

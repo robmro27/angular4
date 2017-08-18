@@ -1,15 +1,61 @@
-<user-form (onSubmitted)="onSubmitted($event)"></user-form>
+<h1>Users</h1>
 
-<ul class="users">
-  <li [class.selected]="user === selectedUser" *ngFor="let user of users" (click)="onSelect(user)">
-    <span class="badge">{{user.id}}</span> {{user.username}}
-    <button class="delete" (click)="deleteUser(user); $event.stopPropagation()">x</button>
-  </li>
-</ul>
-
-<div *ngIf="selectedUser">
-  <h2>
-    {{selectedUser.username | uppercase}}
-  </h2>
-  <button (click)="gotoDetail()">View Details</button>
+<div class="row">
+    <div class="col-md-12">
+        <table *ngIf="users" class="table table-bordered text-center">
+            <thead class="thead-inverse">
+              <tr>
+                <th>UserID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Active</th>
+                <th>Details</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr [class.selected]="user === selectedUser" *ngFor="let user of users">
+                <td scope="row">{{user.id}}</td>
+                <td scope="row">{{user.username}}</td>
+                <td scope="row">{{user.email}}</td>
+                <td scope="row">
+                    <span class="badge badge-success" *ngIf="user.is_active">Yes</span>
+                    <span class="badge badge-danger" *ngIf="!user.is_active">No</span>
+                </td>
+                <td>
+                  <button class="btn btn-primary" (click)="onSelect(user)">Details</button>
+                </td>
+                <td>
+                  <button class="btn btn-primary" (click)="deleteUser(user); $event.stopPropagation()">Delete</button>
+                </td>
+              </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-block">
+                <h4 class="card-title">Add new User</h4>
+                    <user-form (onSubmitted)="onSubmitted($event)"></user-form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div *ngIf="selectedUser" class="card">
+            <div class="card-block">
+                <h4 class="card-title">
+                    User Details
+                </h4>
+                <h6 class="card-subtitle mb-2 text-muted">Username: {{selectedUser.username}}</h6>
+                <p class="card-text text-muted">Email: {{selectedUser.email}}</p>
+                <button class="btn btn-primary" (click)="gotoDetail()">Edit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

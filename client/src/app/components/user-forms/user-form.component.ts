@@ -1,4 +1,4 @@
-import {Component, Output, EventEmitter, OnChanges, SimpleChanges, Input} from '@angular/core';
+import {Component, Output, EventEmitter, OnChanges, SimpleChanges, Input, ViewChild} from '@angular/core';
 import { User } from '../../services/user/user';
 import { UserService } from '../../services/user/user.service';
 
@@ -11,6 +11,8 @@ export class UserFormComponent implements OnChanges {
 
     @Input() user: User;
     @Output() onSubmitted = new EventEmitter<User>();
+
+    @ViewChild('userForm') form: any;
 
     public states = [true,false];
     public model  = new User(null, null, null, true);
@@ -34,7 +36,10 @@ export class UserFormComponent implements OnChanges {
 
         this.submitted = true;
         if (!this.user) {
-            this.userService.addUser(this.model).then(user => {this.onSubmitted.emit(user);})
+            this.userService.addUser(this.model).then(user => {
+                this.onSubmitted.emit(user);
+                this.form.reset();
+            })
         } else {
             this.userService.updateUser(this.model).then(user => {this.onSubmitted.emit(user);})
         }
