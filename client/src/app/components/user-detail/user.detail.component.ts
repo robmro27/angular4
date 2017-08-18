@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User } from '../../services/user/user';
 import { UserService } from '../../services/user/user.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
@@ -14,7 +14,7 @@ import 'rxjs/add/operator/switchMap';
 
 export class UserDetailComponent implements OnInit {
 
-    @Input() user: User;
+    public user: User;
 
     constructor(private userService: UserService, private route: ActivatedRoute, private location: Location) {}
 
@@ -24,9 +24,8 @@ export class UserDetailComponent implements OnInit {
             .subscribe(user => this.user = user);
     }
 
-    save(): void {
-        this.userService.updateUser(this.user)
-            .then(() => this.goBack());
+    onSubmitted(): void {
+        this.goBack();
     }
 
     goBack(): void {

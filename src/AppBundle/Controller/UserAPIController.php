@@ -18,13 +18,16 @@ class UserAPIController extends FOSRestController
 {
     /**
      * @Rest\Get("", name="api_users")
+     * @param Request $request
      * @return array
      */
-    public function usersAction()
+    public function usersAction(Request $request)
     {
+        $searchParam = $request->query->get('name', null);
+
         $users = $this->getDoctrine()
                       ->getRepository(User::class)
-                      ->findAll();
+                      ->findAllSearch($searchParam);
 
         return ['data' => $users];
     }

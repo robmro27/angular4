@@ -9,13 +9,17 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { UsersComponent } from './components/users/users.component';
 import { UserDetailComponent } from './components/user-detail/user.detail.component';
 import { UserService } from './services/user/user.service';
+import { UserFormComponent } from './components/user-forms/user-form.component';
+import { UserSearchComponent } from './components/user-search/user-search.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     UsersComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    UserFormComponent,
+    UserSearchComponent,
   ],
   imports: [
     AppRouterModule,

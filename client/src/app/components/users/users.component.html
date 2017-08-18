@@ -1,11 +1,4 @@
-<div>
-  <label>User name:</label> <input #userName />
-  <label>User password:</label> <input #userPass />
-  <label>User email:</label> <input type="email" #userEmail />
-  <button (click)="addUser(userName.value, userPass.value, userEmail.value);userName.value='';userPass.value=''; userEmail.value = ''">
-    Add
-  </button>
-</div>
+<user-form (onSubmitted)="onSubmitted($event)"></user-form>
 
 <ul class="users">
   <li [class.selected]="user === selectedUser" *ngFor="let user of users" (click)="onSelect(user)">

@@ -1,0 +1,29 @@
+<div class="container">
+    <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+        <div class="form-group">
+            <label for="username">Name</label>
+            <input #username="ngModel" [(ngModel)]="model.username" name="username" type="text" class="form-control" id="username" required #spy1>
+            <div [hidden]="username.valid || username.pristine" class="alert alert-danger">Name is required</div>
+            <!--<br>TODO: remove this: {{spy1.className}}-->
+            <!--TODO: remove this: {{model.username}}-->
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input #email="ngModel" [(ngModel)]="model.email" name="email" type="text" class="form-control" id="email" required #spy2>
+            <div [hidden]="email.valid || email.pristine" class="alert alert-danger">Email is required</div>
+            <!--<br>TODO: remove this: {{spy2.className}}-->
+            <!--TODO: remove this: {{model.email}}-->
+        </div>
+
+        <div class="form-group">
+            <label for="is_active">Is Active</label>
+            <select [(ngModel)]="model.is_active" name="is_active" class="form-control" id="is_active" required>
+                <option *ngFor="let state of states" [value]="state">{{state}}</option>
+            </select>
+        </div>
+
+        <button [disabled]="!userForm.form.valid" type="submit" class="btn btn-success">Submit</button>
+
+    </form>
+</div>

@@ -35,13 +35,9 @@ export class UserService {
             .catch(this.handleError);
     }
 
-    addUser(name: string, password: string, email: string): Promise<User> {
-        return this.http.post(this.usersUrl, JSON.stringify(
-                {   username: name,
-                    password: password,
-                    email: email,
-                    is_active: true
-                }), {headers: this.headers})
+    addUser(user: User): Promise<User> {
+        delete user.id;
+        return this.http.post(this.usersUrl, JSON.stringify(user), {headers: this.headers})
             .toPromise()
             .then(response => response.json().data as User)
             .catch(this.handleError);

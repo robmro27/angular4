@@ -1,5 +1,3 @@
 export class User {
-    id: number;
-    username: string;
-    email: string;
+    constructor(public id: number, public username: string, public email: string, public is_active?: boolean) {}
 }
