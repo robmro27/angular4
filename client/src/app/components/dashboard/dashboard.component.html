@@ -1,7 +1,13 @@
+<ol class="breadcrumb">
+    <li class="breadcrumb-item active">Home</li>
+</ol>
+
 <h1>Dashboard</h1>
 
 <section class="row placeholders">
     <div class="col-md-12">
+
+        <google-chart [data]="pieChartData"></google-chart>
 
         <table *ngIf="users" class="table table-bordered text-center">
             <thead class="thead-inverse">
@@ -17,11 +23,11 @@
                 <td scope="row">{{user.username}}</td>
                 <td scope="row">{{user.email}}</td>
                 <td scope="row">
-                    <span class="badge badge-success" *ngIf="user.is_active">Yes</span>
-                    <span class="badge badge-danger" *ngIf="!user.is_active">No</span>
+                    <span *ngIf="user.is_active">Yes</span>
+                    <span *ngIf="!user.is_active">No</span>
                 </td>
                 <td>
-                    <button class="btn btn-primary" [routerLink]="['/user', user.id]">Edit</button>
+                    <button class="btn btn-outline-secondary btn-sm" [routerLink]="['/user', user.id]">Edit</button>
                 </td>
             </tr>
             </tbody>

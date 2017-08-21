@@ -9,6 +9,17 @@ import { User } from '../../services/user/user';
 
 export class DashboardComponent implements OnInit {
 
+    pieChartData =  {
+        chartType: 'PieChart',
+        dataTable: [
+            ['User Status', 'Active/InActive'],
+            ['Active',     50],
+            ['InActive', 50],force
+            
+        ],
+        options: {'title': 'Users'},
+    };
+
     users: User[];
 
     constructor(private userService: UserService) {}

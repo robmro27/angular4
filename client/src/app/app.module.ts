@@ -12,6 +12,9 @@ import { UserService } from './services/user/user.service';
 import { UserFormComponent } from './components/user-forms/user-form.component';
 import { UserSearchComponent } from './components/user-search/user-search.component';
 
+import { Ng2GoogleChartsModule } from 'ng2-google-charts';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +29,7 @@ import { UserSearchComponent } from './components/user-search/user-search.compon
     BrowserModule,
     FormsModule,
     HttpModule,
+    Ng2GoogleChartsModule
   ],
   providers: [UserService],
   bootstrap: [AppComponent]

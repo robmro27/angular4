@@ -11,7 +11,7 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="assets/bootstrap-theme-minty.css">
+    <link rel="stylesheet" href="assets/bootstrap-theme-journal.css">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 
   </head>
@@ -22,6 +22,18 @@
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        // !important: You want to give this variable(var googleLoaded = false;).
+        // This is used to run multiple chart in your jade.
+        var googleLoaded = false;
+
+        // !important: Define which chart packages to preload.
+        // Because this package uses ChartWrappers you can use any chart type that Google supports,
+        // but if it // isn't loaded it will load it on demand.
+        var googleChartsPackagesToLoad = ['geochart'];
+    </script>
 
   </body>
 
