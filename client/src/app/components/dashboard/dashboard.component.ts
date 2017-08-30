@@ -13,11 +13,19 @@ export class DashboardComponent implements OnInit {
         chartType: 'PieChart',
         dataTable: [
             ['User Status', 'Active/InActive'],
-            ['Active',     50],
-            ['InActive', 50],force
-            
+            ['Active',     10],
+            ['InActive', 50]
         ],
-        options: {'title': 'Users'},
+        options: {
+            'title': 'Users',
+            is3D: true,
+            slices: {
+                0: { color: '#593196' },
+                1: { color: '#A991D4' }
+            },
+            width: '400',
+            height: '400',
+        },
     };
 
     users: User[];

@@ -6,21 +6,27 @@
 <h1>Users</h1>
 
 <div class="row">
-    <div class="col-md-12">
-        <table *ngIf="users" class="table table-bordered text-center">
+
+    <div class="col-md-2">
+        <input class="form-control" #searchBox id="search-box" (keyup)="search(searchBox.value)">
+    </div>
+
+</div>
+
+<div class="row top-buffer">
+
+    <div *ngIf="users | async  as users" class="col-md-12">
+        <table *ngIf="users.length" class="table table-bordered text-center">
             <thead class="thead-inverse">
-              <tr>
-                <th>UserID</th>
+            <tr>
                 <th>Username</th>
                 <th>Email</th>
                 <th>Active</th>
-                <th>Details</th>
                 <th>Actions</th>
-              </tr>
+            </tr>
             </thead>
             <tbody>
-              <tr [class.selected]="user === selectedUser" *ngFor="let user of users">
-                <td scope="row">{{user.id}}</td>
+            <tr *ngFor="let user of users" >
                 <td scope="row">{{user.username}}</td>
                 <td scope="row">{{user.email}}</td>
                 <td scope="row">
@@ -28,26 +34,27 @@
                     <span *ngIf="!user.is_active">No</span>
                 </td>
                 <td>
-                  <button class="btn btn-outline-secondary btn-sm" (click)="onSelect(user)">Details</button>
+                    <button class="btn btn-outline-secondary btn-sm" (click)="onSelect(user)">Details</button>
+                    <button class="btn btn-outline-secondary btn-sm" (click)="goToDetail(user)">Edit</button>
                 </td>
-                <td>
-                  <button class="btn btn-outline-secondary btn-sm" (click)="deleteUser(user); $event.stopPropagation()">Delete</button>
-                </td>
-              </tr>
+            </tr>
             </tbody>
         </table>
     </div>
+
 </div>
 
 <div class="row">
+
     <div class="col-md-6">
         <div class="card">
             <div class="card-block">
                 <h4 class="card-title">Add new User</h4>
-                    <user-form (onSubmitted)="onSubmitted($event)"></user-form>
+                <app-user-form (onSubmitted)="onSubmitted($event)"></app-user-form>
             </div>
         </div>
     </div>
+
     <div class="col-md-6">
         <div *ngIf="selectedUser" class="card">
             <div class="card-block">
@@ -58,11 +65,8 @@
                     <li>Username: {{selectedUser.username}}</li>
                     <li>Email: {{selectedUser.email}}</li>
                 </ul>
-                <button class="btn btn-outline-secondary btn-sm" (click)="gotoDetail()">Edit</button>
+                <button class="btn btn-outline-secondary btn-sm" (click)="goToDetail(selectedUser)">Edit</button>
             </div>
         </div>
     </div>
 </div>
-
-
-

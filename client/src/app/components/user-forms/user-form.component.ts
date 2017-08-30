@@ -3,7 +3,7 @@ import { User } from '../../services/user/user';
 import { UserService } from '../../services/user/user.service';
 
 @Component({
-    selector: 'user-form',
+    selector: 'app-user-form',
     templateUrl: './user-form.component.html'
 })
 
@@ -14,7 +14,9 @@ export class UserFormComponent implements OnChanges {
 
     @ViewChild('userForm') form: any;
 
-    public states = [true,false];
+    public states = [true, false];
+    public submitted = false;
+
     public model  = new User(null, null, null, true);
 
     constructor (private userService: UserService) {
@@ -25,8 +27,6 @@ export class UserFormComponent implements OnChanges {
             this.model = this.user;
         }
     }
-
-    submitted = false;
 
     onSubmit() {
 
@@ -39,7 +39,7 @@ export class UserFormComponent implements OnChanges {
             this.userService.addUser(this.model).then(user => {
                 this.onSubmitted.emit(user);
                 this.form.reset();
-            })
+            });
         } else {
             this.userService.updateUser(this.model).then(user => {this.onSubmitted.emit(user);})
         }

@@ -1,47 +1,63 @@
-import { Component, OnInit } from '@angular/core';
-import { User } from '../../services/user/user';
-import { UserService } from '../../services/user/user.service';
-import { Router } from '@angular/router';
+import {Component, OnInit, AfterViewInit} from '@angular/core';
+import {Router} from '@angular/router';
 
+import {Observable} from 'rxjs/Observable';
+import {Subject} from 'rxjs/Subject';
+
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/distinctUntilChanged';
+
+import {UserSearchService} from '../../services/user/user-search.service';
+import {UserService} from '../../services/user/user.service';
+import {User} from '../../services/user/user';
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  providers: []
+    selector: 'app-users',
+    templateUrl: './users.component.html',
+    providers: [UserSearchService, UserService]
 })
-export class UsersComponent implements OnInit {
-  users: User[];
-  selectedUser: User;
 
-  constructor (private userService: UserService, private router: Router) {}
+export class UsersComponent implements OnInit, AfterViewInit {
 
-  ngOnInit(): void {
-    this.getUsers();
-  }
+    public users: Observable<User[]>;
+    public selectedUser: User;
+    public loading = false;
+    private searchTerms = new Subject<string>();
 
-  onSelect(user: User): void {
-    this.selectedUser = user;
-  }
 
-  getUsers(): void {
-    this.userService.getUsers().then(users => this.users = users);
-  }
+    constructor(private userSearchService: UserSearchService, private router: Router) {}
 
-  onSubmitted(user: User): void {
-      this.users.push(user);
-      this.selectedUser = null;
-  }
+    onSelect(user: User): void {
+        this.selectedUser = user;
+    }
 
-  deleteUser(user: User): void {
-    this.userService.deleteUser(user.id)
-        .then(() => {
-          this.users = this.users.filter(u => u !== user);
-          if (this.selectedUser === user) {this.selectedUser = null;}
-        })
-  }
+    search(term?: string): void {
+        this.searchTerms.next(term);
+    }
 
-  gotoDetail(): void {
-     this.router.navigate(['/user', this.selectedUser.id]).then();
-  }
+    ngOnInit(): void {
 
+        this.users = this.searchTerms
+            .debounceTime(300)
+            .distinctUntilChanged()
+            .do( () => this.loading = true)
+            .switchMap(term => term ? this.userSearchService.search(term) : this.userSearchService.search())
+            .do( () => this.loading = false)
+            .catch(error => {
+                console.log(error);
+                return Observable.of<User[]>([]);
+            });
+    }
+
+    ngAfterViewInit(): void {
+        this.search();
+    }
+
+    goToDetail(user: User): void {
+        const link = ['/user', user.id];
+        this.router.navigate(link).then();
+    }
 }

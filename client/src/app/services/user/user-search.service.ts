@@ -11,12 +11,11 @@ export class UserSearchService {
 
     constructor(private http: Http) {}
 
-    search(term: string): Observable<User[]> {
-
+    search(term?: string): Observable<User[]> {
+        const url =  (term) ? `api/users?name=${term}` : `api/users`;
         return this.http
-            .get(`api/users?name=${term}`)
+            .get(url)
             .map(response => response.json().data as User[]);
 
     }
-
 }

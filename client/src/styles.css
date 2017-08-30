@@ -56,10 +56,6 @@ h1 {
     border-radius: 0;
 }
 
-/*
- * Dashboard
- */
-
 /* Placeholders */
 .placeholders {
     padding-bottom: 3rem;
@@ -70,9 +66,10 @@ h1 {
     padding-bottom: 1.5rem;
 }
 
-/*
- * Cursor
- */
 a, button {
     cursor: pointer;
+}
+
+.top-buffer {
+    margin-top:20px;
 }

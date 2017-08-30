@@ -6,33 +6,9 @@
 
 <section class="row placeholders">
     <div class="col-md-12">
-
-        <google-chart [data]="pieChartData"></google-chart>
-
-        <table *ngIf="users" class="table table-bordered text-center">
-            <thead class="thead-inverse">
-            <tr>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Active</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let user of users" >
-                <td scope="row">{{user.username}}</td>
-                <td scope="row">{{user.email}}</td>
-                <td scope="row">
-                    <span *ngIf="user.is_active">Yes</span>
-                    <span *ngIf="!user.is_active">No</span>
-                </td>
-                <td>
-                    <button class="btn btn-outline-secondary btn-sm" [routerLink]="['/user', user.id]">Edit</button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="google-chart-container">
+            <google-chart [data]="pieChartData"></google-chart>
+        </div>
     </div>
 </section>
 
-<user-search></user-search>

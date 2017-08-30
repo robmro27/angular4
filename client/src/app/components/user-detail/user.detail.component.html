@@ -17,7 +17,7 @@
                 <h4 class="card-title">
                     {{user.username}}
                 </h4>
-                <user-form *ngIf="user" [user]="user" (onSubmitted)="onSubmitted()"></user-form>
+                <app-user-form *ngIf="user" [user]="user" (onSubmitted)="onSubmitted()"></app-user-form>
             </div>
         </div>
 
