@@ -25,7 +25,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
     public users: Observable<User[]>;
     public selectedUser: User;
     public loading = false;
-    private searchTerms = new Subject<string>();
+
+    private terms = new Subject<any>();
 
 
     constructor(private userSearchService: UserSearchService, private router: Router) {}
@@ -34,17 +35,17 @@ export class UsersComponent implements OnInit, AfterViewInit {
         this.selectedUser = user;
     }
 
-    search(term?: string): void {
-        this.searchTerms.next(term);
+    search(searchTerm?: any): void {
+        this.terms.next({searchTerm: searchTerm});
     }
 
     ngOnInit(): void {
 
-        this.users = this.searchTerms
+        this.users = this.terms
             .debounceTime(300)
             .distinctUntilChanged()
             .do( () => this.loading = true)
-            .switchMap(term => term ? this.userSearchService.search(term) : this.userSearchService.search())
+            .switchMap(terms => this.userSearchService.search(terms))
             .do( () => this.loading = false)
             .catch(error => {
                 console.log(error);

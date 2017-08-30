@@ -23,7 +23,7 @@ class UserAPIController extends FOSRestController
      */
     public function usersAction(Request $request)
     {
-        $searchParam = $request->query->get('name', null);
+        $searchParam = $request->query->get('search', null);
 
         $users = $this->getDoctrine()
                       ->getRepository(User::class)

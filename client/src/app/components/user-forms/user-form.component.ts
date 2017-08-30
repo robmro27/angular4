@@ -14,7 +14,7 @@ export class UserFormComponent implements OnChanges {
 
     @ViewChild('userForm') form: any;
 
-    public states = [true, false];
+    public states = [{key: true, label: 'Yes'}, {key: false, label: 'No'}];
     public submitted = false;
 
     public model  = new User(null, null, null, true);
@@ -41,7 +41,7 @@ export class UserFormComponent implements OnChanges {
                 this.form.reset();
             });
         } else {
-            this.userService.updateUser(this.model).then(user => {this.onSubmitted.emit(user);})
+            this.userService.updateUser(this.model).then(user => {this.onSubmitted.emit(user); } );
         }
     }
 

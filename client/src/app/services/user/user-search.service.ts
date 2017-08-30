@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
+import {Http, URLSearchParams, RequestOptions, Headers} from '@angular/http';
 
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -11,10 +11,22 @@ export class UserSearchService {
 
     constructor(private http: Http) {}
 
-    search(term?: string): Observable<User[]> {
-        const url =  (term) ? `api/users?name=${term}` : `api/users`;
+    search(terms?: any): Observable<User[]> {
+
+        const url =  `api/users`;
+        const headers = new Headers();
+        const params = new URLSearchParams();
+
+        headers.append('Content-Type', 'application/json');
+
+        if (terms.searchTerm) {
+            params.append('search', terms.searchTerm);
+        }
+
+        const options = new RequestOptions({ headers: headers, params: params });
+
         return this.http
-            .get(url)
+            .get(url, options)
             .map(response => response.json().data as User[]);
 
     }

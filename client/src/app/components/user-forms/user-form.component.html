@@ -21,7 +21,7 @@
         <div class="form-group">
             <label for="is_active">Is Active</label>
             <select [(ngModel)]="model.is_active" name="is_active" class="form-control" id="is_active" required>
-                <option *ngFor="let state of states" [value]="state">{{state}}</option>
+                <option *ngFor="let state of states" [value]="state.key">{{state.label}}</option>
             </select>
         </div>
 
