@@ -57,6 +57,10 @@ export class UsersComponent implements OnInit, AfterViewInit {
         this.search();
     }
 
+    onSubmitted(): void {
+        this.search();
+    }
+
     goToDetail(user: User): void {
         const link = ['/user', user.id];
         this.router.navigate(link).then();
